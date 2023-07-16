@@ -17,16 +17,15 @@ public class CategoryDao {
         Category category;
         String sqlQuery;
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         // Process
-        try {
-            sqlQuery = "select * from categories;";
-            connection = new ConnectionCore().open();
-            preparedStatement = connection.prepareStatement(sqlQuery);
-            resultSet = preparedStatement.executeQuery();
+        sqlQuery = "select * from categories;";
+
+        try (
+                Connection connection = new ConnectionCore().open();
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = preparedStatement.executeQuery();
+        ) {
 
             // Result
             while (resultSet.next()) {
@@ -40,19 +39,6 @@ public class CategoryDao {
             }
 
 
-        } finally {
-
-            if(resultSet !=null && !resultSet.isClosed()) {
-                resultSet.close();
-            }
-
-            if (preparedStatement != null && !preparedStatement.isClosed()) {
-                preparedStatement.close();
-            }
-
-            if(connection != null && !connection.isClosed()) {
-                connection.close();
-            }
         }
 
         // Result

@@ -2,6 +2,7 @@ package org.ironman;
 
 import org.ironman.core.ConnectionCore;
 import org.ironman.dao.CategoryDao;
+import org.ironman.dao.impl.CategoryDaoImpl;
 import org.ironman.entity.Category;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class App
         System.out.println( "Hello World!" );
 
         try {
-            CategoryDao categoryDao = new CategoryDao();
+            CategoryDao categoryDao = new CategoryDaoImpl();
             List<Category> categories = categoryDao.findAll();
 
             for (Category category: categories) {

@@ -9,40 +9,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDao {
+public interface CategoryDao {
 
-    public List<Category> findAll() throws Exception {
-        // Variables
-        List<Category> categories = new ArrayList<>();
-        Category category;
-        String sqlQuery;
+    List<Category> findAll() throws Exception;
 
+    Category findById(Long id) throws Exception;
 
-        // Process
-        sqlQuery = "select * from categories;";
+    Category create(Category category) throws Exception;
 
-        try (
-                Connection connection = new ConnectionCore().open();
-                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-                ResultSet resultSet = preparedStatement.executeQuery();
-        ) {
+    Category edit (Category category, Long id) throws Exception;
 
-            // Result
-            while (resultSet.next()) {
-                category = new Category();
-
-                category.setId(resultSet.getLong("id"));
-                category.setName(resultSet.getString("name"));
-                category.setDescription(resultSet.getString("description"));
-
-                categories.add(category);
-            }
-
-
-        }
-
-        // Result
-
-        return categories;
-    }
+    void remove(Long id) throws Exception;
 }
